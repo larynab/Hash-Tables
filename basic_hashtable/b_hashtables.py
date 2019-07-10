@@ -24,7 +24,10 @@ class BasicHashTable:
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hash = 5381
+    for x in string:
+        hash = ((hash << 5) + hash) + ord(x)
+    return hash % max
 
 
 # '''
@@ -55,6 +58,9 @@ def hash_table_retrieve(hash_table, key):
 
 
 def Testing():
+    print(hash("Hello woorld", 10))
+    print(hash("how are you doing?", 10))
+
     ht = BasicHashTable(16)
 
     hash_table_insert(ht, "line", "Here today...\n")
