@@ -15,7 +15,9 @@ class Pair:
 # '''
 class BasicHashTable:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        # self.count = 0
+        self.storage = [None] * capacity
 
 
 # '''
@@ -23,16 +25,25 @@ class BasicHashTable:
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hash = 5381
+    for x in string:
+        hash = ((hash << 5) + hash) + ord(x)
+    return hash % max
 
 
-# '''
-# Fill this in.
+# '''x
 
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    index = hash(key, hash_table.capacity)
+    pair = Pair(key, value)
+    stored_pair = hash_table.storage[index]
+    if hash_table.storage[index] is not None:
+        if pair.key != stored.pair.key:
+            print("Warning, index at" + str(index) + "is not empty")
+    
+    hash_table.storage[index] = pair
 
 
 # '''
@@ -41,7 +52,14 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity)
+
+    if hash_table.storage[index] is None or hash_table.storage[index].key != key:
+        print("unable to move item with key" + key)
+    
+    else:
+        hash_table.storage[index] = None
+
 
 
 # '''
@@ -50,20 +68,35 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity)
 
+    if hash_table.storage[index] is not None:
+        if hash_table.storage[index].key == key:
+            return hash_table.storage[index].value
+    print("unable to find value with key" + key)
+    return None
 
 def Testing():
+    print(hash("Hello woorld", 10))
+    print(hash("how are you doing?", 10))
+
     ht = BasicHashTable(16)
 
     hash_table_insert(ht, "line", "Here today...\n")
 
+    #debugging method
+    # breakpoint()
+    #ht
+    #dir(ht)
+    #ht.storage
+    #ht.storage[13].value
+    
     hash_table_remove(ht, "line")
 
     if hash_table_retrieve(ht, "line") is None:
         print("...gone tomorrow (success!)")
     else:
-        print("ERROR:  STILL HERE")
+        print("ERROR:  STILL HERE, not REmoved YET!!!")
 
 
 Testing()
