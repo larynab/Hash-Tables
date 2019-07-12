@@ -16,7 +16,7 @@ class Pair:
 class BasicHashTable:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.count = 0
+        # self.count = 0
         self.storage = [None] * capacity
 
 
@@ -61,8 +61,13 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity)
 
+    if hash_table.storage[index] is not None:
+        if hash_table.storage[index].key == key:
+            return hash_table.storage[index].value
+    print("unable to find value with key" + key)
+    return None
 
 def Testing():
     print(hash("Hello woorld", 10))
@@ -72,6 +77,7 @@ def Testing():
 
     hash_table_insert(ht, "line", "Here today...\n")
 
+    #debugging method
     # breakpoint()
     #ht
     #dir(ht)
@@ -83,7 +89,7 @@ def Testing():
     if hash_table_retrieve(ht, "line") is None:
         print("...gone tomorrow (success!)")
     else:
-        print("ERROR:  STILL HERE")
+        print("ERROR:  STILL HERE, not REmoved YET!!!")
 
 
 Testing()
